@@ -61,12 +61,18 @@ Metrics are described in the [ActionMesh paper](https://arxiv.org/abs/2601.16148
 
 ## 🏆 Leaderboard
 
-Average result over all 128 animated objects (seed=42).
+Average result over all 128 animated objects (ActionMesh seed=42).
 
 | Method | CD-3D ↓ | CD-4D ↓ | CD-M ↓ |
 |--------|---------|---------|--------|
-| ActionMesh | **0.053** | **0.081** | **0.148** |
+| [TRELLIS](https://arxiv.org/abs/2412.01506) | 0.065 | 0.181 | . |
+| [TripoSG](https://arxiv.org/abs/2502.06608) | 0.056 | 0.184 | . |
+| [DreamMesh4D](https://arxiv.org/abs/2410.06756) | 0.104 | 0.152 | 0.265 |
+| [LIM](https://arxiv.org/abs/2503.22537) | 0.089 | 0.126 | 0.243 |
+| [V2M4](https://arxiv.org/abs/2503.09631) | 0.068 | 0.340 | 0.616 |
+| [ShapeGen4D](https://arxiv.org/abs/2510.06208) | 0.056 | 0.170 | 0.348 |
 | ActionMesh `--fast` | 0.055 | 0.088 | 0.154 |
+| ActionMesh | **0.053** | **0.081** | **0.148** |
 
 ## 🏛️ License
 
