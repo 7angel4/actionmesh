@@ -180,7 +180,7 @@ class ActionMeshDenoiser(nn.Module, PyTorchModelHubMixin):
             hidden_states (B, T, N, D): Input latents to denoise.
             context (B, T, S, cross_attention_dim): Context for cross-attention.
             framestep (B, T): Video timesteps for temporal positional encoding.
-            diffusion_time (B): Flow-matching timestep (0=clean, 1=noise).
+            diffusion_time (B): Flow-matching timestep (0=clean, max=noise).
             mask (B, T): Optional mask for ground-truth latent positions.
                 Values: 1=ground-truth (diffusion_time set to 0), 0=noise.
             freqs_rot: Optional precomputed rotary embeddings from previous call.
