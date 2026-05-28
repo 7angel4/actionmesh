@@ -12,17 +12,19 @@
 ## 📖 Overview
 
 ActionBench is a benchmark dataset of **128 paired video ↔ animated point-cloud samples** for evaluating animated 3D mesh generation from video.
+The dataset consists of synthetic scenes of animated objects from [ObjaverseXL](https://objaverse.allenai.org/), rendered using **Blender 3.5.1**.
 
 Each sample contains:
 - **Video**: 16 RGBA frames with alpha mask
+- **Camera** (`camera.json`): Camera parameters using Blender convention (`X_cam = X @ R^T + T`, camera looks along -Z). See [`projection.py`](https://huggingface.co/datasets/facebook/actionbench/blob/main/projection.py) for how to project the point cloud onto the image plane.
 - **Animated Point Cloud**: Surface points sampled on the animated object with shape `(T, V, 6)` where:
   - `T=16`: number of keyframes
-  - `V`: number of vertices (points randomly sampled on the mesh surface)
+  - `V=100_000`: number of vertices (points randomly sampled on the mesh surface)
   - `6`: position `(x, y, z)` + normal `(nx, ny, nz)` for each point
 
   > **Note:** The point cloud is **tracked**: each point index corresponds to the same surface point deformed across timesteps, providing dense correspondences over time.
 
-The dataset consists of synthetic scenes of animated objects from [ObjaverseXL](https://objaverse.allenai.org/), rendered using **Blender 3.5.1**.
+  The animation lie in normalized space `[-1., 1.]^3`.
 
 ## 📊 Evaluation
 
@@ -71,8 +73,8 @@ Average result over all 128 animated objects (ActionMesh seed=42).
 | [LIM](https://arxiv.org/abs/2503.22537) | 0.089 | 0.126 | 0.243 |
 | [V2M4](https://arxiv.org/abs/2503.09631) | 0.068 | 0.340 | 0.616 |
 | [ShapeGen4D](https://arxiv.org/abs/2510.06208) | 0.056 | 0.170 | 0.348 |
-| ActionMesh `--fast` | 0.055 | 0.088 | 0.154 |
-| ActionMesh | **0.053** | **0.081** | **0.148** |
+| ActionMesh `--fast` | 0.054 | 0.089 | 0.156 |
+| ActionMesh | **0.054** | **0.085** | **0.153** |
 
 ## 🏛️ License
 
