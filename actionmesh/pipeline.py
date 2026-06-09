@@ -226,6 +226,12 @@ class ActionMeshPipeline(nn.Module):
         self._load_background_removal()
         self._load_image_to_3d()
         self._load_image_encoder()
+        import torch
+
+        print("Synchronizing before Stage I...")
+        torch.cuda.synchronize()
+        print("Synchronization passed.")
+
         self._load_temporal_denoiser()
         self._load_temporal_vae()
 

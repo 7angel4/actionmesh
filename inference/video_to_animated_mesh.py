@@ -10,6 +10,18 @@ import os
 from pathlib import Path
 
 import torch
+
+torch.backends.cudnn.enabled = False
+torch.backends.cudnn.benchmark = False
+
+# torch.backends.cuda.enable_flash_sdp(False)
+# torch.backends.cuda.enable_mem_efficient_sdp(False)
+# torch.backends.cuda.enable_math_sdp(True)
+
+# print("flash:", torch.backends.cuda.flash_sdp_enabled())
+# print("mem:", torch.backends.cuda.mem_efficient_sdp_enabled())
+# print("math:", torch.backends.cuda.math_sdp_enabled())
+
 from actionmesh.io.glb_export import create_animated_glb
 from actionmesh.io.mesh_io import save_deformation, save_meshes
 from actionmesh.io.video_input import load_frames
