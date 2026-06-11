@@ -11,6 +11,9 @@ import tempfile
 from pathlib import Path
 
 import torch
+torch.backends.cudnn.enabled = False
+torch.backends.cudnn.benchmark = False
+
 import trimesh
 from actionmesh.io.glb_export import create_animated_glb
 from actionmesh.io.mesh_io import load_glb, save_deformation, save_meshes
