@@ -69,6 +69,7 @@ def run_actionmesh(
     output_dir: str,
     seed: int,
     blender_path: str | None = None,
+    max_frames: int | None = 31,
     # -- Pipeline parameters
     stage_0_steps: int | None = None,
     face_decimation: int | None = None,
@@ -78,8 +79,10 @@ def run_actionmesh(
     anchor_idx: int | None = None,
 ):
 
-    # -- Prepare input video
-    input = load_frames(path=input, max_frames=31)
+    # -- Prepare input video. max_frames=None loads the full clip; the Stage-I
+    # denoiser handles arbitrary length via overlapping sliding windows
+    # (temporal_context_size=16, slide=15), so this is not capped to 31.
+    input = load_frames(path=input, max_frames=max_frames)
 
     # -- Load anchor mesh (deep-copy visual/faces before pipeline
     # modifies the mesh in-place via merge_vertices)
@@ -168,6 +171,13 @@ if __name__ == "__main__":
         help="Output directory for generated meshes. Default: outputs/<input_name>",
     )
     parser.add_argument("--seed", type=int, default=44)
+    parser.add_argument(
+        "--max_frames",
+        type=int,
+        default=31,
+        help="Max input frames to load. -1 or 0 = all frames (sliding-window AR "
+             "handles arbitrary length). Default 31.",
+    )
     parser.add_argument(
         "--blender_path",
         type=str,
@@ -275,6 +285,7 @@ if __name__ == "__main__":
         output_dir=args.output_dir,
         seed=args.seed,
         blender_path=args.blender_path,
+        max_frames=(None if args.max_frames <= 0 else args.max_frames),
         stage_0_steps=args.stage_0_steps,
         face_decimation=args.face_decimation,
         floaters_threshold=args.floaters_threshold,
